@@ -8,6 +8,15 @@ class SaberCrystal(object):
     def color(self):
         return (self.red, self.green, self.blue)
 
+    def __eq__(self, other):
+        if isinstance(other, SaberCrystal):
+            return self.color == other.color
+        else:
+            return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def _color_add(self, color):
         red, green, blue = color
         new_color = (self.red + red if self.red + red <= 255 else 255,
@@ -39,6 +48,7 @@ class SaberCrystal(object):
         else:
             raise TypeError()
         self.red, self.green, self.blue = self._color_add(color)
+        return self
 
     def __sub__(self, other):
         if isinstance(other, SaberCrystal):
@@ -57,6 +67,7 @@ class SaberCrystal(object):
         else:
             raise TypeError()
         self.red, self.green, self.blue = self._color_sub(color)
+        return self
 
     def __contains__(self, other):
         if isinstance(other, SaberCrystal):
